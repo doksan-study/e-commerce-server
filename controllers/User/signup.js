@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
   // TODO: 2. 비밀번호 암호화 처리 [o]
   User.findOne(
     {
-      email: user.email,
+      email: user.name,
     },
     (err, userData) => {
       if (userData?.email) {
