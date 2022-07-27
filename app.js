@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const routes = require("./routes");
+
 const app = express();
 const port = process.env.PORT || 8751;
 
@@ -29,6 +31,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
 
+app.use("/", routes);
 app.get("/", (req, res, next) => {
   return res.send("Welcome to PLZ");
 });
