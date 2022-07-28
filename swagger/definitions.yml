@@ -1,4 +1,26 @@
 definitions:
+  ##-------- 상품
+  ## 상품 등록
+  productCreate:
+    type: "Object"
+    properties:
+      name:
+        type: "String"
+        example: "상품 이름"
+      description:
+        type: "String"
+        example: "상품 상세 내용"
+      cost:
+        type: "Number"
+        example: "상품 가격"
+      thumbnail:
+        type: "String"
+        exmaple: "아직 미 작업..."
+  ## 상품 삭제
+  productDelete:
+    type: "Object"
+    properties:
+      objectId:
+        type: "String"
+        example: "상품 id"
   ## 유저
-
-  ## 상품
