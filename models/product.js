@@ -12,9 +12,6 @@ const productSchema = mongoose.Schema({
   cost: {
     type: Number,
   },
-  status: {
-    type: Number,
-  },
 });
 
 const Product = mongoose.model("Product", productSchema);

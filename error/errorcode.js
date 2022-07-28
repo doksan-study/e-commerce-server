@@ -22,6 +22,11 @@ module.exports = {
   },
 
   // 404
+  notFoundProduct: {
+    status: 404,
+    message: "요청하신 상품이 없습니다.",
+    errorCode: "404",
+  },
   notFoundUser: {
     status: 404,
     message: "요청하신 유저가 존재하지 않습니다.",

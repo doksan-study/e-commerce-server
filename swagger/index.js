@@ -16,7 +16,11 @@ const options = {
       },
     ],
   },
-  apis: ["./controllers/User/*.js"],
+  apis: [
+    "./controllers/User/*.js", //
+    "./controllers/Product/*.js",
+    "./swagger/*",
+  ],
 };
 
 const specs = swaggereJsdoc(options);
