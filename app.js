@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
+const { swaggerUi, specs } = require("./swagger");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -13,7 +14,7 @@ const port = process.env.PORT || 8751;
 
 // cors Option
 const corsOption = {
-  origin: "*",
+  origin: true,
   credential: true,
 };
 
@@ -32,6 +33,8 @@ app.use(cookieParser());
 app.use(cors(corsOption));
 
 app.use("/", routes);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 app.get("/", (req, res, next) => {
   return res.send("Welcome to PLZ");
 });
