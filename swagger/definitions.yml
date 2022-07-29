@@ -7,6 +7,9 @@ definitions:
       name:
         type: "String"
         example: "상품 이름"
+      category:
+        type: "String"
+        example: "상품 카테고리"
       description:
         type: "String"
         example: "상품 상세 내용"
