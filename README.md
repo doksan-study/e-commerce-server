@@ -1,13 +1,9 @@
-### plz-server-mongo
+## plz-server-mongo
 
 ---
 
 <br>
 <br>
-
-싹 다 바꿀거얌
-
-nest.js 로!!
 
 ```
 user
