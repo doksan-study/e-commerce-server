@@ -1,7 +1,22 @@
-import { Controller, Delete, Get, Patch, Post, Put } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  Param,
+  Patch,
+  Post,
+  Put,
+  UseFilters,
+  UseInterceptors,
+} from '@nestjs/common';
+// import { SuccessInterceptor } from '../common/interceptors/success.interceptor';
+// import { HttpExceptionFilter } from '../common/exceptions/http-exception.filter';
 import { ProductService } from './product.service';
 
 @Controller('product')
+// @UseInterceptors(SuccessInterceptor)
+// @UseFilters(HttpExceptionFilter)
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
@@ -19,13 +34,15 @@ export class ProductController {
 
   // 상품 상세
   @Get(':id')
-  getOneProduct() {
+  getOneProduct(@Param('id') param) {
+    console.log('상품 상세 id', param);
     return 'one Product';
   }
 
   // 상품 수정
   @Put(':id')
-  updateProduct() {
+  updateProduct(@Param('id') param) {
+    console.log('상품 수정 id', param);
     return 'update product';
   }
 
@@ -37,7 +54,7 @@ export class ProductController {
 
   // 상품 삭제
   @Delete(':id')
-  deleteProduct() {
+  deleteProduct(@Param('id') param) {
     return 'delete product';
   }
 }
