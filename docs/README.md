@@ -3,6 +3,44 @@
 <br>
 <br>
 
+**코드 분석**
+
+<br>
+
+주관적인 내용이니 참고만 하시면 좋을 것 같습니다.
+
+질문 있으면 저에게 남겨주세요.
+
+얕은 지식이지만 성심성의껏 알려드리겠습니다.
+
+```
+module.ts
+
+controller.ts
+
+service.ts 순으로 보는 것을 추천드립니다
+```
+
+```
+1. main.ts
+2. app.module.ts
+3. app.controller.ts
+4. app.service.ts
+
+<product>
+5. product.module.ts
+6. product.controller.ts
+7. product.service.ts
+
+<user>
+8. user.module.ts
+9. user.controller.ts
+10. user.service.ts
+```
+
+<br>
+<br>
+
 ### nest 시작하기
 
 ---
