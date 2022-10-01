@@ -8,8 +8,7 @@ async function bootstrap() {
   // 전역변수로 setting한 errorcode를 선언
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  // const PORT = process.env.PORT;
-  const PORT = 7700;
+  const PORT = process.env.PORT;
 
   await app.listen(PORT, () => {
     console.log(`running on ${PORT}...`);
