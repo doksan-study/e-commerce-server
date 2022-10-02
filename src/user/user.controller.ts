@@ -1,4 +1,5 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import { UserRequestDto } from './dto/user.request.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -19,7 +20,8 @@ export class UserController {
 
   // 유저 등록(회원가입)
   @Post('signup')
-  signUp() {
+  signUp(@Body() body: UserRequestDto) {
+    console.log('body: ', body);
     return '회원 가입';
   }
 

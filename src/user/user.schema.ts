@@ -56,21 +56,6 @@ export class User extends Document {
   @IsString()
   profile: string;
 
-  // 주소
-  @Prop()
-  @IsString()
-  address: string;
-
-  // 성별
-  @Prop()
-  @IsString()
-  gender: string;
-
-  // 나이
-  @Prop()
-  @IsNumber()
-  age: number;
-
   // 권한
   @Prop({ required: true })
   @IsNotEmpty()
@@ -82,4 +67,24 @@ export class User extends Document {
   @IsNotEmpty()
   @IsNumber()
   status: number;
+
+  // 주소
+  // FIXME: 사용자 입장에서는 있어도 안 넣을 듯?
+  // @Prop()
+  // @IsString()
+  // address: string;
+
+  // 성별
+  // FIXME: 굳이 넣어야 돼?
+  // @Prop()
+  // @IsString()
+  // gender: string;
+
+  // 나이
+  // FIXME: 굳이 넣어야 돼?
+  // @Prop()
+  // @IsNumber()
+  // age: number;
 }
+
+export const UserSchema = SchemaFactory.createForClass(User);
