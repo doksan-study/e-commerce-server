@@ -1,8 +1,21 @@
-import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Post,
+  UseFilters,
+  UseInterceptors,
+} from '@nestjs/common';
+import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 import { UserRequestDto } from './dto/user.request.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
+@UseInterceptors(SuccessInterceptor)
+@UseFilters(HttpExceptionFilter)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -20,9 +33,10 @@ export class UserController {
 
   // 유저 등록(회원가입)
   @Post('signup')
-  signUp(@Body() body: UserRequestDto) {
+  async signUp(@Body() body: UserRequestDto) {
     console.log('body: ', body);
-    return '회원 가입';
+    // return '회원 가입';
+    return await this.userService.signUp(body);
   }
 
   // 유저 로그인

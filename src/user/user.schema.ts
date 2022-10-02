@@ -63,16 +63,17 @@ export class User extends Document {
   authLevel: number;
 
   // 상태(탈퇴 여부)
-  @Prop({ required: true })
-  @IsNotEmpty()
-  @IsNumber()
-  status: number;
+  // @Prop({ required: true })
+  // @IsNotEmpty()
+  // @IsNumber()
+  // status: number;
 
   // 주소
   // FIXME: 사용자 입장에서는 있어도 안 넣을 듯?
-  // @Prop()
-  // @IsString()
-  // address: string;
+  // 긍데 스토어니까 넣어야 할 듯
+  @Prop()
+  @IsString()
+  address: string;
 
   // 성별
   // FIXME: 굳이 넣어야 돼?
@@ -85,6 +86,31 @@ export class User extends Document {
   // @Prop()
   // @IsNumber()
   // age: number;
+
+  readonly readOnlyData: {
+    id: string;
+    email: string;
+    name: string;
+    nickname: string;
+    phone: string;
+    authLevel: number;
+  };
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+// Virtual Field 생성
+// 회원가입시 보여주는 데이터를 한 번 더 가공해서
+// 가공한 데이터를 보낸다.
+
+UserSchema.virtual('readOnlyData').get(function (this: User) {
+  return {
+    id: this.id,
+    email: this.email,
+    name: this.name,
+    nickname: this.nickname,
+    phone: this.phone,
+    authLevel: this.authLevel,
+    // createdAt: this.createdAt,
+  };
+});
