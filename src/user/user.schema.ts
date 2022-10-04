@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Document, SchemaOptions } from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 
 const options: SchemaOptions = {
   timestamps: true,
@@ -9,6 +10,11 @@ const options: SchemaOptions = {
 @Schema(options)
 export class User extends Document {
   // 이메일
+  @ApiProperty({
+    example: 'test11@gmail.com',
+    description: 'email',
+    required: true,
+  })
   @Prop({
     required: true,
     unique: true,
@@ -18,6 +24,11 @@ export class User extends Document {
   email: string;
 
   // 비밀번호
+  @ApiProperty({
+    example: 'test11',
+    description: 'password',
+    required: true,
+  })
   @Prop({
     required: true,
   })
@@ -26,6 +37,11 @@ export class User extends Document {
   password: string;
 
   // 이름
+  @ApiProperty({
+    example: 'test11',
+    description: 'name',
+    required: true,
+  })
   @Prop({
     required: true,
   })
@@ -34,6 +50,11 @@ export class User extends Document {
   name: string;
 
   // 닉네임
+  @ApiProperty({
+    example: '테스트11',
+    description: 'nickname',
+    required: true,
+  })
   @Prop({
     required: true,
     unique: true,
@@ -43,6 +64,11 @@ export class User extends Document {
   nickname: string;
 
   // 핸드폰 번호
+  @ApiProperty({
+    example: '01012345678',
+    description: 'phone',
+    required: true,
+  })
   @Prop({
     required: true,
     unique: true,
@@ -52,11 +78,20 @@ export class User extends Document {
   phone: string;
 
   // 프로필 이미지
+  @ApiProperty({
+    example: '사진',
+    description: 'profile',
+  })
   @Prop()
   @IsString()
   profile: string;
 
   // 권한
+  @ApiProperty({
+    example: 0,
+    description: 'authLevel',
+    required: true,
+  })
   @Prop({ required: true })
   @IsNotEmpty()
   @IsNumber()
@@ -71,6 +106,11 @@ export class User extends Document {
   // 주소
   // FIXME: 사용자 입장에서는 있어도 안 넣을 듯?
   // 긍데 스토어니까 넣어야 할 듯
+  @ApiProperty({
+    example: '구냥 daumPost로 보내셈',
+    description: 'address',
+    required: true,
+  })
   @Prop()
   @IsString()
   address: string;
