@@ -109,7 +109,6 @@ export class User extends Document {
   @ApiProperty({
     example: '구냥 daumPost로 보내셈',
     description: 'address',
-    required: true,
   })
   @Prop()
   @IsString()
