@@ -32,4 +32,16 @@ export class UserRepository {
   async create(user: UserRequestDto): Promise<User> {
     return await this.userModel.create(user);
   }
+
+  // 이메일을 통한 유저 찾기
+  async findUserByEmail(email: string): Promise<User | null> {
+    const user = await this.userModel.findOne({ email });
+    return user;
+  }
+
+  // 패스워드를 제외하고 유저 찾기
+  async findUserByIdWithoutPassword(userId: string): Promise<User | null> {
+    const user = await this.userModel.findById(userId).select('-password');
+    return user;
+  }
 }
