@@ -12,7 +12,9 @@ export class UserService {
 
   //** 유저 전체조회 */
   async getAllUser() {
-    return '유저 전체 조회';
+    const allUser = await this.userRepository.findAllUser();
+    const readOnlyUsers = allUser.map((user) => user.readOnlyData);
+    return readOnlyUsers;
   }
 
   //** 유저 상세 */
@@ -58,11 +60,6 @@ export class UserService {
     });
 
     return user.readOnlyData;
-  }
-
-  //** 유저 로그아웃 */
-  async logOut() {
-    return '유저 로그아웃';
   }
 
   //** 유저 수정 */

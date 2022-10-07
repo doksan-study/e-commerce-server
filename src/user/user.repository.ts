@@ -10,6 +10,16 @@ export class UserRepository {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
+  // 유저 로그아웃
+  // async logOut() {
+  //   // return await this.userModel
+  // }
+
+  // 유저 전체 찾기
+  async findAllUser() {
+    return await this.userModel.find();
+  }
+
   // 이메일 중복 체크
   async existByEmail(email: string) {
     const result = await this.userModel.exists({ email });

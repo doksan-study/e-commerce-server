@@ -6,6 +6,7 @@ import {
   Patch,
   Post,
   Req,
+  Res,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -19,8 +20,8 @@ import { ReadOnlyUserDto } from '../dto/user.dto';
 import { AuthService } from '../../auth/service/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
-import { Request } from 'express';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
+import { Response } from 'express';
 
 @ApiTags('user')
 @Controller('user')
@@ -80,7 +81,7 @@ export class UserController {
   @ApiOperation({ summary: '로그아웃' })
   @Post('logout')
   async logOut() {
-    return await this.userService.logOut();
+    return '유저 로그아웃';
   }
 
   // 유저 수정
