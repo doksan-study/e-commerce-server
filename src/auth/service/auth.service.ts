@@ -3,7 +3,6 @@ import { UserRepository } from '../../user/user.repository';
 import { LoginRequestDto } from '../dto/login.request.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -40,8 +39,4 @@ export class AuthService {
       token: this.jwtService.sign(payload),
     };
   }
-
-  // async logOut() {
-  //   return response.cookie('', '')
-  // }
 }

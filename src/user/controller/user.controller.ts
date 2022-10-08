@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   Req,
@@ -21,7 +22,6 @@ import { AuthService } from '../../auth/service/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
-import { Response } from 'express';
 
 @ApiTags('user')
 @Controller('user')
@@ -40,30 +40,30 @@ export class UserController {
     return await this.userService.getAllUser();
   }
 
-  @ApiOperation({ summary: '내 정보 조회' })
-  @UseGuards(JwtAuthGuard)
-  @Get('me')
-  getMyInfo(@CurrentUser() user) {
-    return user.readOnlyData;
-  }
+  // @ApiOperation({ summary: '내 정보 조회' })
+  // @UseGuards(JwtAuthGuard)
+  // @Get('me')
+  // getMyInfo(@CurrentUser() user) {
+  //   return user.readOnlyData;
+  // }
 
   //** 유저 상세 */
   @ApiOperation({ summary: '유저 상세' })
-  @Get(':id')
-  async getUserDetail() {
-    return this.userService.getUserDetail();
+  @Get(':userId')
+  async getUserDetail(@Param('userId') userId: string) {
+    return this.userService.getUserDetail(userId);
   }
 
   //** 유저 회원가입 */
-  @ApiResponse({
-    status: 500,
-    description: 'Server Error',
-  })
-  @ApiResponse({
-    status: 200,
-    description: '회원 가입 요청 성공',
-    type: ReadOnlyUserDto,
-  })
+  // @ApiResponse({
+  //   status: 500,
+  //   description: 'Server Error',
+  // })
+  // @ApiResponse({
+  //   status: 200,
+  //   description: '회원 가입 요청 성공',
+  //   type: ReadOnlyUserDto,
+  // })
   @ApiOperation({ summary: '회원 가입' })
   @Post('signup')
   async signUp(@Body() body: UserRequestDto) {
@@ -78,17 +78,17 @@ export class UserController {
   }
 
   //** 로그아웃 */
-  @ApiOperation({ summary: '로그아웃' })
-  @Post('logout')
-  async logOut() {
-    return '유저 로그아웃';
-  }
+  // @ApiOperation({ summary: '로그아웃' })
+  // @Post('logout')
+  // async logOut() {
+  //   return '유저 로그아웃';
+  // }
 
   // 유저 수정
   @ApiOperation({ summary: '유저 정보 수정' })
   @Patch()
-  async updateUser() {
-    return await this.userService.updateUser();
+  async updateUser(@Body() data: any) {
+    return await this.userService.updateUser(data);
   }
 
   // 유저 탈퇴

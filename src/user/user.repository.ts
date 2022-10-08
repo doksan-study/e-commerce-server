@@ -10,10 +10,33 @@ export class UserRepository {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
-  // 유저 로그아웃
-  // async logOut() {
-  //   // return await this.userModel
+  // 유저 정보 수정
+  // async update(user) {
+  //   const result = await this.userModel.findByIdAndUpdate(user.id, {
+  //   })
+  //   return {
+  //     message: '유저 유저 수정',
+  //     data: result,
+  //   };
   // }
+
+  // 유저 id를 통해 유저 찾기
+  async existByUserId(id: string) {
+    const result = await this.userModel.findOne({
+      _id: id,
+    });
+    return result;
+  }
+
+  // 유저 상세 정보 확인
+  async findUserDetail(userId: string) {
+    const result = await this.userModel
+      .findById({
+        _id: userId,
+      })
+      .select('-password');
+    return result;
+  }
 
   // 유저 전체 찾기
   async findAllUser() {
