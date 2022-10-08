@@ -34,10 +34,11 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
-  const PORT = process.env.PORT || 3000;
 
-  await app.listen(PORT, () => {
-    console.log(`running on ${PORT}...`);
+  // const PORT = process.env.PORT;
+
+  await app.listen(process.env.PORT || 8080, () => {
+    console.log(`success!`);
   });
 }
 bootstrap();
