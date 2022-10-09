@@ -13,7 +13,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
-    //
     const error = exception.getResponse() as
       | string
       | { error: string; statusCode: number; message: string | string[] };
@@ -21,7 +20,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (typeof error === 'string') {
       response.status(status).json({
         statusCode: status,
-        timestamp: new Date().toISOString(), // js에서 제공하는 new date()를 ISO 형식으로 변환
+        timestamp: new Date().toISOString(),
         path: request.url,
         error,
       });
