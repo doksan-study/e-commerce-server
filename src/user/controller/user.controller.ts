@@ -47,7 +47,6 @@ export class UserController {
   @ApiOperation({ summary: '유저 상세' })
   @Get(':id')
   async getUserDetail(@Param('id') userId: string) {
-    // console.log(id);
     return await this.userService.getUserDetail(userId);
   }
 
