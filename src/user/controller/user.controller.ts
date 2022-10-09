@@ -6,6 +6,7 @@ import {
   UseFilters,
   Body,
   UseGuards,
+  Param,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
@@ -45,8 +46,9 @@ export class UserController {
   //** 유저 상세 */
   @ApiOperation({ summary: '유저 상세' })
   @Get(':id')
-  async getAllDetail() {
-    return '유저 상세';
+  async getUserDetail(@Param('id') userId: string) {
+    // console.log(id);
+    return await this.userService.getUserDetail(userId);
   }
 
   //** 유저 회원가입 */
