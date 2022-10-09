@@ -7,6 +7,12 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
+  //** 유저 상세 */
+  async getUserDetail(id: string) {
+    const userDetail = await this.userRepository.findUserDetail(id);
+    return userDetail;
+  }
+
   //** 유저 전체 조회 */
   async getAllUser() {
     const allUser = await this.userRepository.findAllUser();

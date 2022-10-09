@@ -10,6 +10,14 @@ export class UserRepository {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
+  // 유저 id로 해당 유저 찾기
+  async findUserDetail(id: string) {
+    const result = await this.userModel
+      .findOne({ _id: id })
+      .select('-password');
+    return result;
+  }
+
   // 유저 전체 찾기
   async findAllUser() {
     return await this.userModel.find();
