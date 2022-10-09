@@ -5,10 +5,13 @@ import {
   UseInterceptors,
   UseFilters,
   Body,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { AuthService } from 'src/auth/service/auth.service';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
 import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 import { UserRequestDto } from '../dto/user.request.dto';
@@ -29,6 +32,14 @@ export class UserController {
   @Get()
   async getAllUser() {
     return await this.userService.getAllUser();
+  }
+
+  //** 내 정보 조회 */
+  @ApiOperation({ summary: '내 정보 조회' })
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  currentUser(@CurrentUser() user) {
+    return user.readOnlyData;
   }
 
   //** 유저 상세 */
