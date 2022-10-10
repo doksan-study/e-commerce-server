@@ -24,7 +24,6 @@ export class ProductController {
   @ApiOperation({ summary: '상품 전체 조회' })
   @Get()
   async getAllProduct() {
-    // return '상품 전체 조회';
     return await this.productService.getAllProduct();
   }
 
@@ -32,7 +31,6 @@ export class ProductController {
   @ApiOperation({ summary: '상품 상세 조회' })
   @Get(':id')
   async getProductDetail(@Param('id') productId: string) {
-    console.log('id: ', productId);
     return await this.productService.getProductDetail(productId);
   }
 
