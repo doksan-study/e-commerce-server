@@ -35,8 +35,13 @@ export class AuthService {
     // payload: base64 인코딩 데이터 (key-value)
     const payload = { email: email, sub: user.id };
 
-    return {
-      token: this.jwtService.sign(payload),
-    };
+    // FIXME: token을 데이터로 바로 보내기
+    const token = this.jwtService.sign(payload);
+
+    return token;
+
+    // return {
+    //   accessToken: token,
+    // };
   }
 }
