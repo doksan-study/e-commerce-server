@@ -23,7 +23,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('P.L.Z')
-    .setDescription('plz')
+    .setDescription('License')
     .setVersion('2.1')
     .build();
 

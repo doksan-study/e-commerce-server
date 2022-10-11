@@ -13,7 +13,7 @@ import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor'
 import { ProductRequestDto } from '../dto/product.request.dto';
 import { ProductService } from '../service/product.service';
 
-@ApiTags('product')
+@ApiTags('02. 상품 관련')
 @Controller('product')
 @UseInterceptors(SuccessInterceptor)
 @UseFilters(HttpExceptionFilter)

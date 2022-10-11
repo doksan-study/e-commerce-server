@@ -18,7 +18,7 @@ import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor'
 import { UserRequestDto } from '../dto/user.request.dto';
 import { UserService } from '../service/user.service';
 
-@ApiTags('user')
+@ApiTags('01. 유저 관련')
 @Controller('user')
 @UseInterceptors(SuccessInterceptor)
 @UseFilters(HttpExceptionFilter)
