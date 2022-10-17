@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ProductRequestDto } from '../dto/product.request.dto';
-import { productRepository } from '../infra/product.repository';
+import { ProductRepository } from '../infra/product.repository';
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly productRepository: productRepository) {}
+  constructor(private readonly productRepository: ProductRepository) {}
 
   //** 상품 전체 조회 */
   async getAllProduct() {

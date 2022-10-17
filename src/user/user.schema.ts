@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Document, SchemaOptions } from 'mongoose';
+import { Like } from '../like/like.schema';
 
 const options: SchemaOptions = {
   timestamps: true,
@@ -107,18 +108,33 @@ export class User extends Document {
     name: string;
     phone: string;
     authLevel: number;
+    wishList: Like[];
   };
+
+  readonly likes: Like[];
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const _UserSchema = SchemaFactory.createForClass(User);
 
 // Virtual Field 생성
-UserSchema.virtual('readOnlyData').get(function (this: User) {
+_UserSchema.virtual('readOnlyData').get(function (this: User) {
   return {
     id: this.id,
     email: this.email,
     name: this.name,
     phone: this.phone,
     authLevel: this.authLevel,
+    wishList: this.likes,
   };
 });
+
+_UserSchema.virtual('likes', {
+  ref: 'like',
+  localField: '_id',
+  foreignField: 'user',
+});
+
+_UserSchema.set('toObject', { virtuals: true });
+_UserSchema.set('toJSON', { virtuals: true });
+
+export const UserSchema = _UserSchema;
