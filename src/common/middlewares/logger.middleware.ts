@@ -1,5 +1,3 @@
-// logging을 보기 위해 사용
-
 import { Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 
@@ -15,7 +13,6 @@ export class LoggerMiddleware implements NestMiddleware {
       );
     });
 
-    // console.log(req.ip);
     next();
   }
 }

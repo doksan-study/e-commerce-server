@@ -1,68 +1,45 @@
 import {
+  Body,
   Controller,
-  Delete,
   Get,
-  HttpException,
   Param,
-  Patch,
   Post,
-  Put,
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
-import { SuccessInterceptor } from '../../common/interceptors/success.interceptor';
-import { HttpExceptionFilter } from '../../common/exceptions/http-exception.filter';
-import { ProductService } from '../service/product.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
+import { ProductRequestDto } from '../dto/product.request.dto';
+import { ProductService } from '../service/product.service';
 
-@ApiTags('product')
+@ApiTags('02. 상품 관련')
 @Controller('product')
 @UseInterceptors(SuccessInterceptor)
 @UseFilters(HttpExceptionFilter)
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  // 상품 전체 조회
+  //** 상품 전체 조회 */
   @ApiOperation({ summary: '상품 전체 조회' })
   @Get()
-  getAllProduct() {
-    return 'all product';
+  async getAllProduct() {
+    return await this.productService.getAllProduct();
   }
 
-  // 상품 등록
-  @ApiOperation({ summary: '상품 등록' })
-  @Post()
-  createProduct() {
-    return 'create product';
-  }
-
-  // 상품 상세
+  //** 상품 상세 조회 */
   @ApiOperation({ summary: '상품 상세 조회' })
   @Get(':id')
-  getOneProduct(@Param('id') param) {
-    console.log('상품 상세 id', param);
-    return 'one Product';
+  async getProductDetail(@Param('id') productId: string) {
+    return await this.productService.getProductDetail(productId);
   }
 
-  // 상품 수정
-  @ApiOperation({ summary: '상품 부분 수정' })
-  @Put(':id')
-  updateProduct(@Param('id') param) {
-    console.log('상품 수정 id', param);
-    return 'update product';
+  //** 상품 등록 */
+  @ApiOperation({ summary: '상품 등록' })
+  @Post()
+  async createProduct(@Body() body: ProductRequestDto) {
+    return await this.productService.create(body);
   }
 
-  // 상품 전체 수정
-  @ApiOperation({ summary: '상품 전체 수정' })
-  @Patch(':id')
-  updatePartialProduct() {
-    return 'update partial product';
-  }
-
-  // 상품 삭제
-  @ApiOperation({ summary: '상품 삭제' })
-  @Delete(':id')
-  deleteProduct(@Param('id') param) {
-    return 'delete product';
-  }
+  //** 상품 수정 */
 }

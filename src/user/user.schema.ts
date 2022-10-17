@@ -1,12 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Document, SchemaOptions } from 'mongoose';
-import { ApiProperty } from '@nestjs/swagger';
 
 const options: SchemaOptions = {
   timestamps: true,
 };
 
+// bm은 쿠팡, ssg를 참고
 @Schema(options)
 export class User extends Document {
   // 이메일
@@ -48,20 +49,6 @@ export class User extends Document {
   @IsNotEmpty()
   @IsString()
   name: string;
-
-  // 닉네임
-  @ApiProperty({
-    example: '테스트11',
-    description: 'nickname',
-    required: true,
-  })
-  @Prop({
-    required: true,
-    unique: true,
-  })
-  @IsNotEmpty()
-  @IsString()
-  nickname: string;
 
   // 핸드폰 번호
   @ApiProperty({
@@ -114,23 +101,10 @@ export class User extends Document {
   @IsString()
   address: string;
 
-  // 성별
-  // FIXME: 굳이 넣어야 돼?
-  // @Prop()
-  // @IsString()
-  // gender: string;
-
-  // 나이
-  // FIXME: 굳이 넣어야 돼?
-  // @Prop()
-  // @IsNumber()
-  // age: number;
-
   readonly readOnlyData: {
     id: string;
     email: string;
     name: string;
-    nickname: string;
     phone: string;
     authLevel: number;
   };
@@ -139,17 +113,12 @@ export class User extends Document {
 export const UserSchema = SchemaFactory.createForClass(User);
 
 // Virtual Field 생성
-// 회원가입시 보여주는 데이터를 한 번 더 가공해서
-// 가공한 데이터를 보낸다.
-
 UserSchema.virtual('readOnlyData').get(function (this: User) {
   return {
     id: this.id,
     email: this.email,
     name: this.name,
-    nickname: this.nickname,
     phone: this.phone,
     authLevel: this.authLevel,
-    // createdAt: this.createdAt,
   };
 });

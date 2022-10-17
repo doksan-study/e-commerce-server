@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserRepository } from '../../user/user.repository';
+import { JwtService } from '@nestjs/jwt';
+import { UserRepository } from 'src/user/infra/user.repository';
 import { LoginRequestDto } from '../dto/login.request.dto';
 import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -32,11 +32,16 @@ export class AuthService {
       throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요.');
     }
 
-    // payload: base64 인코딩 데이터(key-value)
+    // payload: base64 인코딩 데이터 (key-value)
     const payload = { email: email, sub: user.id };
 
-    return {
-      token: this.jwtService.sign(payload),
-    };
+    // FIXME: token을 데이터로 바로 보내기
+    const token = this.jwtService.sign(payload);
+
+    return token;
+
+    // return {
+    //   accessToken: token,
+    // };
   }
 }

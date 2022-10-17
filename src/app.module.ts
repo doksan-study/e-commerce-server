@@ -1,32 +1,23 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { ProductModule } from './product/product.module';
-import { LoggerMiddleware } from './common/middlewares/logger.middleware';
-import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
-import { MeModule } from './me/me.module';
-import mongoose from 'mongoose';
+import { ProductModule } from './product/product.module';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URI),
     UserModule,
-    ProductModule,
     AuthModule,
-    MeModule,
+    ProductModule,
+    LikeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule implements NestModule {
-  private readonly isDev: boolean = process.env.MODE === 'dev';
-
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
-    mongoose.set('debug', this.isDev);
-  }
-}
+export class AppModule {}
