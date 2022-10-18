@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -48,8 +49,8 @@ export class LikeController {
     summary: '찜한 상품 해제',
   })
   @UseGuards(JwtAuthGuard)
-  @Delete()
-  async CancelLikeProduct() {
-    return '찜한 상품 해제';
+  @Put()
+  async CancelLikeProduct(@Body() body: LikeCreateDto) {
+    return this.likeService.cancelLikeProduct(body);
   }
 }
