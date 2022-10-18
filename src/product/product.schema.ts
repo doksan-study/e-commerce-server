@@ -54,4 +54,8 @@ export class Product extends Document {
   // 리뷰
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product);
+export const _ProductSchema = SchemaFactory.createForClass(Product);
+
+// Virtual field
+
+export const ProductSchema = _ProductSchema;
