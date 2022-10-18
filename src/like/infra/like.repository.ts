@@ -15,9 +15,23 @@ export class LikeRepository {
     @InjectModel(Product.name) private readonly productModel: Model<Product>,
   ) {}
 
+  //** 찜하기 해제 */
+  async cancelLikeProduct(body) {
+    try {
+      const result = await this.likeModel.findOneAndDelete(body);
+      return result;
+    } catch (error) {
+      return;
+    }
+  }
+
   //** 찜한 유저의 상품 찾기 */
   async findLikeProduct(productId) {
-    return '나와';
+    const result = await this.productModel.find({
+      _id: { $in: productId },
+    });
+
+    return result;
   }
 
   //** 찜한 유저 찾기 */

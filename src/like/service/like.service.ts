@@ -16,11 +16,19 @@ export class LikeService {
 
   //** 찜한 상품 보기 */
   async findLikeProduct(userId) {
+    // 찜한 유저 찾기
     const findUserLikeProduct = await this.likeRepository.findUserLikeProduct(
       userId,
     );
 
-    return findUserLikeProduct;
+    const productId = findUserLikeProduct.map((item) => item.product);
+
+    // 찜한 유저의 삼품 찾기
+    const findLikeProduct = await this.likeRepository.findLikeProduct(
+      productId,
+    );
+
+    return findLikeProduct;
   }
 
   //** 찜하기 */
@@ -54,5 +62,27 @@ export class LikeService {
     });
 
     return likeProduct;
+  }
+
+  //** 찜하기 해제 */
+  async cancelLikeProduct(body: LikeCreateDto) {
+    const { user, product } = body;
+
+    const validateUser = await this.userRepository.findUserDetail(user);
+    const validateProduct = await this.productRepository.findProductDetail(
+      product,
+    );
+    // const { name: productName } = validateProduct;
+
+    const cancelLike = await this.likeRepository.cancelLikeProduct({
+      user: validateUser._id,
+      product: validateProduct._id,
+    });
+
+    if (!cancelLike) {
+      throw new UnauthorizedException('해당 찜한 상품이 없습니다.');
+    }
+
+    return cancelLike;
   }
 }
