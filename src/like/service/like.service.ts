@@ -1,5 +1,4 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { Types } from 'mongoose';
 
 import { ProductRepository } from '../../product/infra/product.repository';
 import { UserRepository } from '../../user/infra/user.repository';
@@ -15,7 +14,7 @@ export class LikeService {
   ) {}
 
   //** 찜한 상품 보기 */
-  async findLikeProduct(userId) {
+  async findLikeProduct(userId: any) {
     // 찜한 유저 찾기
     const findUserLikeProduct = await this.likeRepository.findUserLikeProduct(
       userId,
@@ -32,11 +31,11 @@ export class LikeService {
   }
 
   //** 찜하기 */
-  async createLikeProduct(body: LikeCreateDto) {
-    const { user, product } = body;
+  async createLikeProduct(userId, body: any) {
+    const { product } = body;
 
     //** 유저 및 상품 유효성 검사 */
-    const validateUser = await this.userRepository.findUserDetail(user);
+    const validateUser = await this.userRepository.findUserDetail(userId);
     const validateProduct = await this.productRepository.findProductDetail(
       product,
     );
@@ -47,7 +46,7 @@ export class LikeService {
 
     //** 같은 상품에 찜했는지 검사 */
     const validateLikeProduct = await this.likeRepository.existLikeProduct({
-      user: validateUser._id,
+      user: validateUser?._id,
       product: validateProduct._id,
     });
 
@@ -55,7 +54,7 @@ export class LikeService {
       throw new UnauthorizedException('이미 같은 상품에 찜하기를 하셨습니다.');
     }
 
-    //* 찜하기 등록 */
+    // //* 찜하기 등록 */
     const likeProduct = await this.likeRepository.create({
       user: validateUser._id,
       product: validateProduct._id,
@@ -65,14 +64,13 @@ export class LikeService {
   }
 
   //** 찜하기 해제 */
-  async cancelLikeProduct(body: LikeCreateDto) {
-    const { user, product } = body;
+  async cancelLikeProduct(userId: any, body: any) {
+    const { product } = body;
 
-    const validateUser = await this.userRepository.findUserDetail(user);
+    const validateUser = await this.userRepository.findUserDetail(userId);
     const validateProduct = await this.productRepository.findProductDetail(
       product,
     );
-    // const { name: productName } = validateProduct;
 
     const cancelLike = await this.likeRepository.cancelLikeProduct({
       user: validateUser._id,
@@ -83,6 +81,6 @@ export class LikeService {
       throw new UnauthorizedException('해당 찜한 상품이 없습니다.');
     }
 
-    return cancelLike;
+    return '찜하기 해제 되었습니다.';
   }
 }

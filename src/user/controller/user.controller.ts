@@ -40,7 +40,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   currentUser(@CurrentUser() user) {
-    return user.readOnlyData;
+    return user;
   }
 
   //** 유저 상세 */

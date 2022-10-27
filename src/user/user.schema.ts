@@ -6,6 +6,7 @@ import { Like } from '../like/like.schema';
 
 const options: SchemaOptions = {
   timestamps: true,
+  collection: 'users',
 };
 
 // bm은 쿠팡, ssg를 참고
@@ -91,50 +92,29 @@ export class User extends Document {
   // @IsNumber()
   // status: number;
 
-  // 주소
-  // FIXME: 사용자 입장에서는 있어도 안 넣을 듯?
-  // 긍데 스토어니까 넣어야 할 듯
-  @ApiProperty({
-    example: '구냥 daumPost로 보내셈',
-    description: 'address',
-  })
-  @Prop()
-  @IsString()
-  address: string;
-
-  readonly readOnlyData: {
-    id: string;
-    email: string;
-    name: string;
-    phone: string;
-    authLevel: number;
-    wishList: Like[];
-  };
-
-  readonly likes: Like[];
+  // readonly readOnlyData: {
+  //   id: string;
+  //   email: string;
+  //   name: string;
+  //   phone: string;
+  //   authLevel: number;
+  // };
 }
 
 export const _UserSchema = SchemaFactory.createForClass(User);
 
 // Virtual Field 생성
-_UserSchema.virtual('readOnlyData').get(function (this: User) {
-  return {
-    id: this.id,
-    email: this.email,
-    name: this.name,
-    phone: this.phone,
-    authLevel: this.authLevel,
-    wishList: this.likes,
-  };
-});
+// _UserSchema.virtual('readOnlyData').get(function (this: User) {
+//   return {
+//     id: this.id,
+//     email: this.email,
+//     name: this.name,
+//     phone: this.phone,
+//     authLevel: this.authLevel,
+//   };
+// });
 
-_UserSchema.virtual('likes', {
-  ref: 'like',
-  localField: '_id',
-  foreignField: 'user',
-});
-
-_UserSchema.set('toObject', { virtuals: true });
-_UserSchema.set('toJSON', { virtuals: true });
+// _UserSchema.set('toObject', { virtuals: true });
+// _UserSchema.set('toJSON', { virtuals: true });
 
 export const UserSchema = _UserSchema;

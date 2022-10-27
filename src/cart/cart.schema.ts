@@ -40,9 +40,16 @@ export class Cart extends Document {
     description: '수량',
     required: true,
   })
+  @Prop({
+    required: true,
+  })
   @IsNotEmpty()
   @IsNumber()
   count: number;
 }
 
-export const CartSchema = SchemaFactory.createForClass(Cart);
+export const _CartSchema = SchemaFactory.createForClass(Cart);
+
+// Virtual Field
+
+export const CartSchema = _CartSchema;

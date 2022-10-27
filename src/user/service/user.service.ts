@@ -16,7 +16,7 @@ export class UserService {
   //** 유저 전체 조회 */
   async getAllUser() {
     const allUser = await this.userRepository.findAllUser();
-    const readOnlyUsers = allUser.map((user) => user.readOnlyData);
+    const readOnlyUsers = allUser.map((user) => user);
     return readOnlyUsers;
   }
 
@@ -47,6 +47,12 @@ export class UserService {
       authLevel,
     });
 
-    return user.readOnlyData;
+    const result = {
+      email: user.email,
+      name: user.name,
+      phone: user.phone,
+      authLevel: user.authLevel,
+    };
+    return result;
   }
 }

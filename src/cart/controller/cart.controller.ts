@@ -1,6 +1,8 @@
 import {
+  Body,
   Controller,
   Get,
+  Param,
   Post,
   Put,
   UseFilters,
@@ -12,6 +14,11 @@ import { HttpExceptionFilter } from '../../common/exceptions/http-exception.filt
 import { CartService } from '../service/cart.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
+import { CartCreateDto } from '../dto/cart.create.dto';
+import {
+  CurrentUser,
+  CurrentUserId,
+} from 'src/common/decorators/user.decorator';
 
 @ApiTags('04. 장바구니 관련')
 @Controller('cart')
@@ -25,8 +32,8 @@ export class CartController {
   })
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getCart() {
-    return '장바구니 보기';
+  async getCart(@CurrentUserId() userId) {
+    return this.cartService.findCart(userId);
   }
 
   @ApiOperation({
@@ -34,8 +41,8 @@ export class CartController {
   })
   @UseGuards(JwtAuthGuard)
   @Post()
-  async postCart() {
-    return '장바구니 담기';
+  async createCart(@CurrentUserId() userId, @Body() body: any) {
+    return this.cartService.createCart(userId, body);
   }
 
   @ApiOperation({

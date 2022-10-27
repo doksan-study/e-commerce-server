@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   Post,
@@ -12,13 +11,12 @@ import {
 } from '@nestjs/common';
 import { SuccessInterceptor } from '../../common/interceptors/success.interceptor';
 import { HttpExceptionFilter } from '../../common/exceptions/http-exception.filter';
-import { UserService } from '../../user/service/user.service';
-import { ProductService } from '../../product/service/product.service';
+
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
 import { LikeCreateDto } from '../dto/like.create.dto';
 import { LikeService } from '../service/like.service';
-import { Types } from 'mongoose';
+import { CurrentUserId } from '../../common/decorators/user.decorator';
 
 @ApiTags('03. 찜하기 관련')
 @Controller('like')
@@ -31,8 +29,8 @@ export class LikeController {
     summary: '찜한 상품 보기',
   })
   @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  async getLikeProduct(@Param('id') userId) {
+  @Get()
+  async getLikeProduct(@CurrentUserId() userId) {
     return this.likeService.findLikeProduct(userId);
   }
 
@@ -41,8 +39,8 @@ export class LikeController {
   })
   @UseGuards(JwtAuthGuard)
   @Post()
-  async LikeProduct(@Body() body: LikeCreateDto) {
-    return this.likeService.createLikeProduct(body);
+  async LikeProduct(@CurrentUserId() userId, @Body() body: LikeCreateDto) {
+    return this.likeService.createLikeProduct(userId, body);
   }
 
   @ApiOperation({
@@ -50,7 +48,10 @@ export class LikeController {
   })
   @UseGuards(JwtAuthGuard)
   @Put()
-  async CancelLikeProduct(@Body() body: LikeCreateDto) {
-    return this.likeService.cancelLikeProduct(body);
+  async CancelLikeProduct(
+    @CurrentUserId() userId,
+    @Body() body: LikeCreateDto,
+  ) {
+    return this.likeService.cancelLikeProduct(userId, body);
   }
 }
