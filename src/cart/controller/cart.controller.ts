@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Param,
   Post,
   Put,
   UseFilters,
@@ -14,7 +13,6 @@ import { HttpExceptionFilter } from '../../common/exceptions/http-exception.filt
 import { CartService } from '../service/cart.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
-import { CartCreateDto } from '../dto/cart.create.dto';
 import {
   CurrentUser,
   CurrentUserId,

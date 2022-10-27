@@ -9,7 +9,6 @@ const options: SchemaOptions = {
 
 @Schema(options)
 export class Product extends Document {
-  // 카테고리
   // 이름
   @ApiProperty({
     example: '상품 이름',
@@ -50,7 +49,7 @@ export class Product extends Document {
   price: number;
 
   // 썸네일
-  // 옵션
+
   // 리뷰
 }
 

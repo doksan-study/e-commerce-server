@@ -85,20 +85,6 @@ export class User extends Document {
   @IsNotEmpty()
   @IsNumber()
   authLevel: number;
-
-  // 상태(탈퇴 여부)
-  // @Prop({ required: true })
-  // @IsNotEmpty()
-  // @IsNumber()
-  // status: number;
-
-  // readonly readOnlyData: {
-  //   id: string;
-  //   email: string;
-  //   name: string;
-  //   phone: string;
-  //   authLevel: number;
-  // };
 }
 
 export const _UserSchema = SchemaFactory.createForClass(User);

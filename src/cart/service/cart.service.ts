@@ -1,7 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ProductRepository } from 'src/product/infra/product.repository';
 import { UserRepository } from 'src/user/infra/user.repository';
-import { CartCreateDto } from '../dto/cart.create.dto';
 import { CartRepository } from '../infra/cart.repository';
 
 @Injectable()
@@ -14,7 +13,6 @@ export class CartService {
 
   //** 장바구니 보기 */
   async findCart(userId: any) {
-    // 보내는 유저 아이디를 통해 장바구니 확인하기
     const findMyCart = await this.cartRepository.findMyCart(userId);
 
     return findMyCart;

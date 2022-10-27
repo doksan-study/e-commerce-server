@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { ProductRepository } from '../../product/infra/product.repository';
 import { UserRepository } from '../../user/infra/user.repository';
-import { LikeCreateDto } from '../dto/like.create.dto';
 import { LikeRepository } from '../infra/like.repository';
 
 @Injectable()

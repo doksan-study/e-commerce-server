@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model, Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Product } from '../../product/product.schema';
 import { User } from '../../user/user.schema';
 import { Cart } from '../cart.schema';
-import { CartCreateDto } from '../dto/cart.create.dto';
 
 @Injectable()
 export class CartRepository {
@@ -15,9 +14,9 @@ export class CartRepository {
   ) {}
 
   //** 내 장바구니 확인하기 */
-  async findMyCart(cart) {
+  async findMyCart(userId: any) {
     const result = await this.cartModel
-      .find()
+      .find({ user: userId })
       .populate('product', '', this.productModel)
       .populate('user', '-password', this.userModel)
       .exec();
@@ -39,8 +38,6 @@ export class CartRepository {
 
   //** 장바구니 등록 */
   async create(cart: any): Promise<Cart> {
-    console.log('cart: ', cart);
-    // return '장바구니 등록';
     return await this.cartModel.create(cart);
   }
 }

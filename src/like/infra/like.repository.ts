@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { User } from '../../user/user.schema';
 import { UserRepository } from '../../user/infra/user.repository';
-import { LikeCreateDto } from '../dto/like.create.dto';
 import { Like } from '../like.schema';
 import { Product } from '../../product/product.schema';
 import { LikeModelDto } from '../dto/like.model.dto';
@@ -37,13 +36,10 @@ export class LikeRepository {
 
   //** 찜한 유저 찾기 */
   async findUserLikeProduct(userId: any) {
-    // const newId = new mongoose.Types.ObjectId(userId);
-
     const result = await this.likeModel.find({
       user: userId,
     });
 
-    // const result = findLike.map((item) => item.product);
     return result;
   }
 
