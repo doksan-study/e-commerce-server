@@ -33,9 +33,7 @@ export class LikeController {
     return this.likeService.findLikeProduct(userId);
   }
 
-  @ApiOperation({
-    summary: '찜하기',
-  })
+  @ApiOperation({ summary: '찜하기' })
   @UseGuards(JwtAuthGuard)
   @Post()
   async LikeProduct(@CurrentUserId() userId, @Body() body: LikeCreateDto) {
