@@ -49,8 +49,6 @@ export class Product extends Document {
   price: number;
 
   // 썸네일
-
-  // 리뷰
 }
 
 export const _ProductSchema = SchemaFactory.createForClass(Product);
