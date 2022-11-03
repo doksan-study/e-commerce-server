@@ -1,5 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ReviewModule } from 'src/review/review.module';
+import { Review, ReviewSchema } from 'src/review/review.schema';
+import { UserModule } from 'src/user/user.module';
+import { User, UserSchema } from 'src/user/user.schema';
 import { Like, LikeSchema } from '../like/like.schema';
 import { ProductController } from './controller/product.controller';
 import { ProductRepository } from './infra/product.repository';
@@ -10,10 +14,8 @@ import { ProductService } from './service/product.service';
   imports: [
     MongooseModule.forFeature([
       { name: Product.name, schema: ProductSchema },
-      {
-        name: Like.name,
-        schema: LikeSchema,
-      },
+      { name: Like.name, schema: LikeSchema },
+      { name: Review.name, schema: ReviewSchema },
     ]),
   ],
   controllers: [ProductController],

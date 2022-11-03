@@ -5,6 +5,7 @@ import { Document, Types } from 'mongoose';
 
 const options: SchemaOptions = {
   timestamps: true,
+  collection: 'reviews',
 };
 
 @Schema(options)

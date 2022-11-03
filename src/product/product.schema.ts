@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory, SchemaOptions } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+import { Review } from 'src/review/review.schema';
 
 const options: SchemaOptions = {
   timestamps: true,
