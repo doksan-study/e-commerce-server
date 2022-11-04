@@ -50,6 +50,17 @@ export class Product extends Document {
   price: number;
 
   // 썸네일
+
+  // 리뷰 수
+  // review: number;
+
+  @Prop({
+    type: Types.ObjectId,
+    ref: 'reviews',
+  })
+  review: Types.ObjectId[];
+  // 별점
+  // rating: number;
 }
 
 export const _ProductSchema = SchemaFactory.createForClass(Product);

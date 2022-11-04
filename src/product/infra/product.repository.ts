@@ -19,7 +19,7 @@ export class ProductRepository {
   async findProductDetail(id: string | Types.ObjectId) {
     try {
       const result = await this.ProductModel.findOne({ _id: id });
-
+      console.log('product: ', result);
       return result;
     } catch (error) {
       return undefined;
@@ -28,7 +28,13 @@ export class ProductRepository {
 
   // 상품 전체 찾기
   async findAllProduct() {
-    return await this.ProductModel.find();
+    const product = await this.ProductModel.find().populate(
+      'review',
+      '',
+      this.reviewModel,
+    );
+
+    return product;
   }
 
   // 상품 등록

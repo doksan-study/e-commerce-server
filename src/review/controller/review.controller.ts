@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
   UseFilters,
@@ -27,6 +28,12 @@ export class ReviewController {
   @Post()
   async createReview(@CurrentUserId() userId, @Body() body: any) {
     return await this.reviewService.createReview(userId, body);
+  }
+
+  @ApiOperation({ summary: '리뷰 보기' })
+  @Get()
+  async getReview() {
+    return await this.reviewService.getReview();
   }
 
   @ApiOperation({ summary: '리뷰 삭제' })
