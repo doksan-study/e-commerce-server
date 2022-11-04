@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { Review } from '../../review/review.schema';
 import { UserRequestDto } from '../dto/user.request.dto';
 import { User } from '../user.schema';
 
@@ -8,6 +9,7 @@ import { User } from '../user.schema';
 export class UserRepository {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(Review.name) private readonly reviewModel: Model<Review>,
   ) {}
 
   // 유저 id로 해당 유저 찾기
@@ -16,6 +18,7 @@ export class UserRepository {
       const result = await this.userModel
         .findOne({ _id: id })
         .select('-password');
+
       return result;
     } catch (error) {
       return;
@@ -24,7 +27,8 @@ export class UserRepository {
 
   // 유저 전체 찾기
   async findAllUser() {
-    return await this.userModel.find();
+    return await this.userModel.find().select('-password');
+    // .populate('review', '', this.reviewModel);
   }
 
   // 이메일을 통한 유저 찾기

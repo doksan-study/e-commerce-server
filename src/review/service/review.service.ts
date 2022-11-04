@@ -11,6 +11,11 @@ export class ReviewService {
     private readonly productRepository: ProductRepository,
   ) {}
 
+  //** 리뷰 보기 */
+  async getReview() {
+    return await this.reviewRepository.findReview();
+  }
+
   //** 리뷰 작성 */
   async createReview(userId, body) {
     // 유저 id로 리뷰 작성 유저 유효성 검사

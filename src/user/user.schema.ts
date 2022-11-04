@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Document, SchemaOptions } from 'mongoose';
+import { Review } from 'src/review/review.schema';
 import { Like } from '../like/like.schema';
 
 const options: SchemaOptions = {
