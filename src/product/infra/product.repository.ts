@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Like } from 'src/like/like.schema';
-import { User } from 'src/user/user.schema';
 import { Review } from '../../review/review.schema';
 import { ProductRequestDto } from '../dto/product.request.dto';
 import { Product } from '../product.schema';
@@ -28,11 +27,7 @@ export class ProductRepository {
 
   // 상품 전체 찾기
   async findAllProduct() {
-    const product = await this.ProductModel.find().populate(
-      'review',
-      '',
-      this.reviewModel,
-    );
+    const product = await this.ProductModel.find();
 
     return product;
   }
